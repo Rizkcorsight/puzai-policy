@@ -141,7 +141,7 @@ footer {
 <h2>Camera and photo library access</h2>
 <p>PuzAI requests:</p>
 <ul>
-<li><strong>Camera access</strong> &mdash; only when you tap &ldquo;Take photo.&rdquo; iOS prompts via <code>NSCameraUsageDescription</code>; Android prompts via the runtime CAMERA permission flow. PuzAI does not record video, does not run the camera in the background, and does not access the camera unless you explicitly initiate a capture.</li>
+<li><strong>Camera access</strong> &mdash; only when you tap &ldquo;Take photo&rdquo; or open the Live AR view inside Match Mode. iOS prompts via <code>NSCameraUsageDescription</code>; Android prompts via the runtime CAMERA permission flow. The Live AR view streams the camera feed through ARKit on-device to anchor overlays on the puzzle board &mdash; frames are never recorded, never persisted, and never uploaded. PuzAI does not run the camera in the background or access it for any purpose outside these explicit user actions.</li>
 <li><strong>Photo library access</strong> &mdash; only when you tap &ldquo;Choose from Library.&rdquo; iOS uses <code>PhotosPicker</code> (PHPickerViewController under the hood), which does NOT require library permission and returns only the photo you explicitly select. Android uses <code>ActivityResultContracts.PickVisualMedia</code>, which has the same single-photo scope.</li>
 </ul>
 
@@ -155,6 +155,10 @@ footer {
 
 <h2>Changes to this policy</h2>
 <p>If PuzAI ever changes a privacy-affecting behaviour (for example, if a future release adds an opt-in cloud-backup feature), this document will be updated and the change will be summarised at the top of this file with the effective date. The current architecture does not permit any such behaviour; adding it would require new code that violates the static privacy audit in <code>scripts/privacy_audit.sh</code>, which would be visible in the open source diff.</p>
+
+<!-- trademarks -->
+<h2>Trademarks</h2>
+<p>PuzAI is a trademark of Rizk Corsight, LLC. Apple and App Store are trademarks of Apple Inc.; Google Play and Android are trademarks of Google LLC. All other product and company names are used for identification only and remain the property of their respective owners.</p>
 
 <h2>Contact</h2>
 <p>Privacy questions or requests:<br>
