@@ -113,8 +113,8 @@ footer {
 <header>
     <div class="eyebrow">Vol. 01 · Privacy</div>
     <h1>PuzAI Privacy Policy</h1>
-    <p class="lede">PuzAI is a privacy-first jigsaw-puzzle assistant. The architecture below is the policy — the app cannot do otherwise because the code does not contain the means to.</p>
-    <p class="meta">Last updated: 2026-05-20 · Rizk Corsight · <a href="mailto:rizkcorsight@rizkcorsight.com">rizkcorsight@rizkcorsight.com</a></p>
+    <p class="lede">PuzAI is a private, on-device jigsaw <strong>sorting assistant</strong> — it helps you sort and organize your physical puzzle pieces (colour and region buckets, an edge finder, region hints); it does not solve the puzzle for you. The architecture below is the policy — the app cannot do otherwise because the code does not contain the means to.</p>
+    <p class="meta">Last updated: 2026-06-09 · Rizk Corsight · <a href="mailto:rizkcorsight@rizkcorsight.com">rizkcorsight@rizkcorsight.com</a></p>
 </header>
 
 <div class="rule"></div>
@@ -124,7 +124,7 @@ footer {
 <li><strong>No accounts.</strong> PuzAI does not ask for a username, email, phone number, or login of any kind. There is no server-side account because there is no server.</li>
 <li><strong>No analytics.</strong> PuzAI does not include Firebase Analytics, Google Analytics, Mixpanel, Amplitude, Sentry, Crashlytics, or any other analytics or telemetry SDK. There are no tracking pixels, no install pings, no usage counters.</li>
 <li><strong>No advertising.</strong> PuzAI shows no ads and links to no ad networks. The Android build explicitly removes the <code>com.google.android.gms.permission.AD_ID</code> permission.</li>
-<li><strong>No network.</strong> The Android build declares no <code>INTERNET</code> permission, so the OS prevents network calls regardless of code. The iOS build sets <code>NSAllowsArbitraryLoads</code> = false and <code>NSAllowsLocalNetworking</code> = false. Static checks in <code>scripts/privacy_audit.sh</code> fail the build if any networking API surface is referenced.</li>
+<li><strong>No network of PuzAI&rsquo;s own.</strong> PuzAI itself has no server and makes no network requests of its own. The Android build declares no <code>INTERNET</code> permission, so the OS prevents PuzAI&rsquo;s own network calls regardless of code. The iOS build sets <code>NSAllowsArbitraryLoads</code> = false and <code>NSAllowsLocalNetworking</code> = false. Static checks in <code>scripts/privacy_audit.sh</code> fail the build if any networking API surface is referenced. The one exception is the App Store / Google Play in-app purchase flow, which is handled entirely by Apple and Google &mdash; not by PuzAI (see <em>Purchases</em> below).</li>
 <li><strong>No cloud sync.</strong> PuzAI does not use iCloud, Google Drive, Firebase Storage, or any third-party cloud. Projects and photos live in the app&rsquo;s private sandbox on this device only.</li>
 <li><strong>No third-party sharing.</strong> PuzAI does not share data with any third party because PuzAI has no data to share &mdash; see above.</li>
 </ul>
@@ -146,9 +146,12 @@ footer {
 </ul>
 
 <h2>On-device intelligence (Apple Foundation Models)</h2>
-<p>When you run the puzzle-piece pipeline on a device that supports Apple&rsquo;s Foundation Models framework (iOS 26+ with Apple Intelligence enabled, on a capable iPhone or iPad), PuzAI may use the on-device language model to refine the colour-group hint into a more natural sentence. This processing happens entirely on your device. The model does not see your photo bytes &mdash; only the colour family name, piece count, and (when available) the matched reference zone label. The model output is shown on screen and discarded when you close the app.</p>
+<p>PuzAI is a sorting assistant: it groups your pieces into colour and region buckets, points out likely edge pieces, and offers region hints to help you organize your work &mdash; it does not solve the puzzle or place pieces for you. When you run the piece-sorting pipeline on a device that supports Apple&rsquo;s Foundation Models framework (iOS 26+ with Apple Intelligence enabled, on a capable iPhone or iPad), PuzAI may use the on-device language model to phrase a colour- or region-group hint as a more natural sentence. This processing happens entirely on your device. The model does not see your photo bytes &mdash; only the colour family name, piece count, and (when available) the matched reference zone label. The model output is shown on screen and discarded when you close the app.</p>
 <p>If Apple Intelligence is not available, low-power mode is on, or your device runtime is below iOS 26, PuzAI uses a deterministic heuristic hint instead. The user-facing UI is identical.</p>
 <p>On Android, the equivalent on-device LLM path (Gemini Nano via AICore) is currently scaffolded but not wired. When it ships, the same data-handling rules will apply: only the small numeric/label context is sent to the on-device model; never the photo.</p>
+
+<h2>Purchases</h2>
+<p>PuzAI is free to download and includes a 3-day full-access trial. After the trial, a single optional one-time purchase &mdash; <strong>$1.99</strong> &mdash; unlocks the app permanently. There is no subscription. The purchase is handled entirely by <strong>Apple&rsquo;s App Store</strong> (iOS) or <strong>Google Play</strong> (Android) through their own in-app purchase systems. When you start the trial or buy the unlock, the store contacts Apple&rsquo;s or Google&rsquo;s servers to record and verify the purchase. PuzAI never sees or receives your name, payment card, or billing details, and no puzzle, project, or photo data is ever involved in a purchase. The developer receives only anonymous, aggregate sales figures from Apple and Google &mdash; never anything tied to you. Apple&rsquo;s and Google&rsquo;s handling of the transaction is governed by their own privacy policies.</p>
 
 <h2>Children and the Family Sharing tier</h2>
 <p>PuzAI does not target children under 13 and does not knowingly collect any data from anyone of any age. The app is age-rated 4+ in the App Store catalog because it contains no objectionable content; it is suitable for younger users but is designed for adults working on jigsaw puzzles.</p>
@@ -166,7 +169,7 @@ footer {
 <p>Source code transparency: PuzAI&rsquo;s repository contains a <code>scripts/privacy_audit.sh</code> script that statically verifies the absence of network code paths. The CI workflow runs this check on every push and PR &mdash; a build that breaks the privacy guarantees cannot land.</p>
 
 <footer>
-    PuzAI · $1.99 one-time · No accounts · No analytics · No cloud · No remote inference
+    PuzAI · On-device jigsaw sorting assistant · Free with a 3-day trial, then $1.99 one-time · No accounts · No analytics · No cloud · No remote inference
 </footer>
 </main>
 </body>
