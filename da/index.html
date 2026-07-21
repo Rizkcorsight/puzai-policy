@@ -118,7 +118,7 @@ footer {
 </section>
 <!-- store-access-2026-07-15-end -->
 <main class="wrap">
-<div class="policy-locale-note" style="margin:0 0 24px;padding:14px 16px;border:1px solid var(--rule);background:var(--parchment-deep);"><strong>Privatlivspolitik</strong><br>Denne side med privatlivspolitik er for dansk. Oversættelsen leveres som en hjælp; ved forskel gælder den engelske version. <a href="./">English</a></div>
+<div class="policy-locale-note" style="margin:0 0 24px;padding:14px 16px;border:1px solid var(--rule);background:var(--parchment-deep);"><strong>Localized purchase summary</strong><br>The purchase summary above is localized for this route. The detailed privacy policy below is provided in English, which controls if there is any difference. <a href="../">English policy</a></div>
 <!-- store-audit-2026-06-30-start -->
 <section class="store-audit-note" style="margin:28px 0;padding:14px 16px;border:1px solid rgba(128,128,128,.24);border-radius:10px;background:rgba(128,128,128,.06);">
 <h2>Store Listing Alignment</h2>
@@ -133,8 +133,8 @@ footer {
 <header>
     <div class="eyebrow">Vol. 01 · Privacy</div>
     <h1>PuzAI Privacy Policy</h1>
-    <p class="lede">PuzAI is a private, on-device jigsaw <strong>sorting assistant</strong> — it helps you sort and organize your physical puzzle pieces (colour and region buckets, an edge finder, region hints); it does not solve the puzzle for you. The architecture below is the policy — the app cannot do otherwise because the code does not contain the means to.</p>
-    <p class="meta">Last updated: 2026-06-30 · Rizk Corsight · <a href="mailto:rizkcorsight@rizkcorsight.com">rizkcorsight@rizkcorsight.com</a></p>
+    <p class="lede">PuzAI is a private, on-device jigsaw sorting assistant. It helps organize physical pieces into useful groups and suggests likely box regions; it does not solve the puzzle or identify an exact placement.</p>
+    <p class="meta">Last updated: 2026-07-21 · Rizk Corsight · <a href="mailto:rizkcorsight@rizkcorsight.com">rizkcorsight@rizkcorsight.com</a></p>
 </header>
 
 <div class="rule"></div>
@@ -154,20 +154,20 @@ footer {
 <ol>
 <li><strong>Project records</strong> &mdash; the project name, piece-count estimate, creation date, and a list of attached image file names. Stored as JSON files in the app&rsquo;s Application Support / internal storage directory.</li>
 <li><strong>Imported photos</strong> &mdash; when you tap &ldquo;Take photo&rdquo; or &ldquo;Choose from Library,&rdquo; PuzAI copies the selected image bytes into its private images folder. Photos are never uploaded.</li>
-<li><strong>Pipeline output</strong> &mdash; temporary, in-memory only. Piece groups, colour clusters, and on-device hints are not persisted between launches.</li>
+<li><strong>Sorting sessions and journal records</strong> &mdash; piece groups, progress, small derived thumbnails, and optional solve-journal records are saved locally so you can resume. These records remain in the app&rsquo;s private storage and are removed with their project or when the app is uninstalled.</li>
 </ol>
 <p>Deleting a project removes the JSON record AND recursively removes every photo in that project&rsquo;s images directory. Uninstalling the app removes everything PuzAI ever wrote.</p>
 
 <h2>Camera and photo library access</h2>
 <p>PuzAI requests:</p>
 <ul>
-<li><strong>Camera access</strong> &mdash; only when you tap &ldquo;Take photo&rdquo; or open the Live AR view inside Match Mode. iOS prompts via <code>NSCameraUsageDescription</code>; Android prompts via the runtime CAMERA permission flow. The Live AR view streams the camera feed through ARKit on-device to anchor overlays on the puzzle board &mdash; frames are never recorded, never persisted, and never uploaded. PuzAI does not run the camera in the background or access it for any purpose outside these explicit user actions.</li>
+<li><strong>Camera access</strong> &mdash; only when you choose a camera action to photograph puzzle pieces or the puzzle box. iOS prompts via <code>NSCameraUsageDescription</code>; Android prompts through the runtime camera-permission flow. Camera frames are processed on-device and are never uploaded. PuzAI does not run the camera in the background.</li>
 <li><strong>Photo library access</strong> &mdash; only when you tap &ldquo;Choose from Library.&rdquo; iOS uses <code>PhotosPicker</code> (PHPickerViewController under the hood), which does NOT require library permission and returns only the photo you explicitly select. Android uses <code>ActivityResultContracts.PickVisualMedia</code>, which has the same single-photo scope.</li>
 </ul>
 
 <h2>On-device intelligence (Apple Foundation Models)</h2>
-<p>PuzAI is a sorting assistant: it groups your pieces into colour and region buckets, points out likely edge pieces, and offers region hints to help you organize your work &mdash; it does not solve the puzzle or place pieces for you. When you run the piece-sorting pipeline on a device that supports Apple&rsquo;s Foundation Models framework (iOS 26+ with Apple Intelligence enabled, on a capable iPhone or iPad), PuzAI may use the on-device language model to phrase a colour- or region-group hint as a more natural sentence. This processing happens entirely on your device. The model does not see your photo bytes &mdash; only the colour family name, piece count, and (when available) the matched reference zone label. The model output is shown on screen and discarded when you close the app.</p>
-<p>If Apple Intelligence is not available, low-power mode is on, or your device runtime is below iOS 26, PuzAI uses a deterministic heuristic hint instead. The user-facing UI is identical.</p>
+<p>PuzAI includes an Apple Foundation Models implementation for short, on-device hint refinement on supported iOS 26+ devices. The current shipping UI does not invoke that optional implementation; it uses deterministic local hints. If the Foundation Models path is enabled in a future release, it is designed to receive only bounded text and numeric context such as a colour-family label, piece count, and optional region label &mdash; never photo bytes &mdash; and to fall back to deterministic hints when the on-device model is unavailable.</p>
+<p>Current sorting, grouping, and region-hint processing runs locally on the device.</p>
 <p>On Android, the equivalent on-device LLM path (Gemini Nano via AICore) is currently scaffolded but not wired. When it ships, the same data-handling rules will apply: only the small numeric/label context is sent to the on-device model; never the photo.</p>
 
 <h2>Purchases</h2>
@@ -177,19 +177,19 @@ footer {
 <p>PuzAI does not target children under 13 and does not knowingly collect any data from anyone of any age. The app is age-rated 4+ in the App Store catalog because it contains no objectionable content; it is suitable for younger users but is designed for adults working on jigsaw puzzles.</p>
 
 <h2>Changes to this policy</h2>
-<p>If PuzAI ever changes a privacy-affecting behaviour (for example, if a future release adds an opt-in cloud-backup feature), this document will be updated and the change will be summarised at the top of this file with the effective date. The current architecture does not permit any such behaviour; adding it would require new code that violates the static privacy audit in <code>scripts/privacy_audit.sh</code>, which would be visible in the open source diff.</p>
+<p>If PuzAI changes a privacy-affecting behaviour (for example, if a future release adds an opt-in cloud-backup feature), this document will be updated with its effective date. Release checks include a static privacy audit, dependency and permission review, and a comparison against the store privacy declarations.</p>
 
 <!-- trademarks -->
 <h2>Trademarks</h2>
 <p>PuzAI is a trademark of Rizk Corsight, LLC. Apple and App Store are trademarks of Apple Inc.; Google Play and Android are trademarks of Google LLC. All other product and company names are used for identification only and remain the property of their respective owners.</p>
 
-<h2>Contact</h2>
-<p>Privacy questions or requests:<br>
+<h2 id="support">Support and contact</h2>
+<p>For product support, purchase or restore help, privacy questions, or data-deletion questions:<br>
 <strong>Rizk Corsight</strong> &mdash; <a href="mailto:rizkcorsight@rizkcorsight.com">rizkcorsight@rizkcorsight.com</a></p>
 <p>Source code transparency: PuzAI&rsquo;s repository contains a <code>scripts/privacy_audit.sh</code> script that statically verifies the absence of network code paths. The CI workflow runs this check on every push and PR &mdash; a build that breaks the privacy guarantees cannot land.</p>
 
 <footer>
-    PuzAI · On-device jigsaw sorting assistant · Free with a 3-day trial, then a one-time unlock at the store-displayed price · No accounts · No analytics · No cloud · No remote inference
+    PuzAI · 3-day trial · One-time unlock at the store-displayed price · No accounts · No analytics · No cloud · No remote inference
 </footer>
 </main>
 </body>
